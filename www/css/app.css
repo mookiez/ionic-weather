@@ -1,0 +1,76 @@
+body {
+}
+#scroller {
+}
+#bg-image {
+  position: fixed;
+  width: 120%;
+  height: 120%;
+  background: url('../img/madison3.jpg') no-repeat transparent;
+  background-size: cover;
+}
+h1,h2,h3,h4,h5 {
+  color: #fff;
+  font-weight: 300;
+}
+
+#header {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+#header .title {
+  font-size: 12px;
+  line-height: 20px;
+}
+#header .title .city {
+  font-size: 16px;
+}
+#main-content {
+  color: #fff;
+}
+
+#current-weather {
+  height: 180px;
+  box-sizing: content-box;
+}
+#current-weather > * {
+  color: #fff;
+}
+#current-weather .current-temp {
+  font-size: 100px;
+  font-weight: 100;
+  margin: 0;
+  padding: 0;
+  line-height: 80px;
+}
+
+.weather-box {
+  background-color: rgba(0,0,0,0.2);
+  padding: 5px;
+  margin: 10px 0px;
+}
+
+.weather-box .title {
+  color: #fff;
+  font-weight: normal;
+  margin: 0;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #fff;
+}
+
+#city-nav-icon {
+  font-size: 11px;
+  margin-right: 2px;
+}
+
+#current-icon {
+  font-size: 24px;
+}
+
+#temp-hi, #temp-lo { display: inline-block; }
+#temp-lo {
+  margin-left: 10px;
+}
+
+#settings-modal {
+  background-color: rgba(0,0,0,0.8);
+}

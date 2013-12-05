@@ -1,4 +1,6 @@
-ionic-weather
-=============
+ionic-angular-cordova-seed
+==========================
 
-A simple Ionic Weather app
+The perfect starting point for an Ionic project.
+
+- [Ionic Tutorials](http://ionicframework.com/tutorials/)

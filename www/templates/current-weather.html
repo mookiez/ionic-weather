@@ -1,0 +1,8 @@
+<div id="current-weather">
+  <h5><current-weather-icon id="current-icon"></current-weather-icon> {{current.weather}}</h5>
+  <h5>
+    <span id="temp-hi"><i class="icon ion-arrow-up-c"></i> {{forecast.forecastday[0].high.fahrenheit}}&deg;</span>
+    <span id="temp-lo"><i class="icon ion-arrow-down-c"></i> {{forecast.forecastday[0].low.fahrenheit}}&deg;</span>
+  </h5>
+  <h1 class="current-temp">{{current.temp_f | int}}&deg;</h1>
+</div>
