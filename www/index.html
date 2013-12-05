@@ -36,7 +36,6 @@
       </header>
       <content padding="true">
         <current-weather></current-weather>
-        </small-weather>
         <weather-box title="Forecast" style="height: 400px">
         </weather-box>
         <weather-box title="Details" style="height: 400px">
@@ -46,7 +45,7 @@
 
 
     <script id="settings.html" type="text/ng-template">
-      <div id="settings-modal" class="modal">
+      <div id="settings-modal" class="modal" ng-controller="SettingsCtrl">
         <header class="bar bar-header bar-dark">
           <h1 class="title">Settings</h1>
           <button class="button button-clear button-positive" ng-click="closeSettings()">Close</button>
@@ -56,18 +55,12 @@
             <div class="list">
               <label class="item item-input">
                 <span class="input-label">Units</span>
-                <div class="button-bar">
-                </div>
+
+                <radio-buttons ng-model="settings.tempUnits">
+                  <button class="button button-dark button-radio" ng-value="'f'">&deg;F</button>
+                  <button class="button button-dark button-radio" ng-value="'c'">&deg;C</button>
+                </radio-buttons>
               </label>
-              <label class="item item-input">
-                <span class="input-label">Last Name</span>
-                <input type="text" placeholder="">
-              </label>
-              <label class="item item-input">
-                <span class="input-label">Email</span>
-                <input type="text" placeholder="">
-              </label>
-              <button class="button button-full button-positive" ng-click="closeModal()">Create</button>
             </div>
           </div>
         </content>

@@ -52,15 +52,60 @@ angular.module('ionic.weather.directives', [])
   }
  })
 
-.directive('currentWeather', function($timeout) {
+.directive('currentWeather', function($timeout, $rootScope, Settings) {
   return {
     restrict: 'E',
     replace: true,
     templateUrl: 'templates/current-weather.html',
+    scope: true,
     compile: function(element, attr) {
-      console.log('SMALL COMPILED');
       return function($scope, $element, $attr) {
-      console.log('SMALL LINKED');
+
+        $rootScope.$on('settings.changed', function(settings) {
+          var units = Settings.get('tempUnits');
+
+          if($scope.forecast) {
+
+            var forecast = $scope.forecast;
+            var current = $scope.current;
+
+            if(units == 'f') {
+              $scope.highTemp = forecast.forecastday[0].high.fahrenheit;
+              $scope.lowTemp = forecast.forecastday[0].low.fahrenheit;
+              $scope.currentTemp = Math.floor(current.temp_f);
+            } else {
+              $scope.highTemp = forecast.forecastday[0].high.celsius;
+              $scope.lowTemp = forecast.forecastday[0].low.celsius;
+              $scope.currentTemp = Math.floor(current.temp_c);
+            }
+          }
+        });
+
+        $scope.$watch('current', function(current) {
+          var units = Settings.get('tempUnits');
+
+          if(current) {
+            if(units == 'f') {
+              $scope.currentTemp = Math.floor(current.temp_f);
+            } else {
+              $scope.currentTemp = Math.floor(current.temp_c);
+            }
+          }
+        });
+
+        $scope.$watch('forecast', function(forecast) {
+          var units = Settings.get('tempUnits');
+
+          if(forecast) {
+            if(units == 'f') {
+              $scope.highTemp = forecast.forecastday[0].high.fahrenheit;
+              $scope.lowTemp = forecast.forecastday[0].low.fahrenheit;
+            } else {
+              $scope.highTemp = forecast.forecastday[0].high.celsius;
+              $scope.lowTemp = forecast.forecastday[0].low.celsius;
+            }
+          }
+        });
 
       // Delay so we are in the DOM and can calculate sizes
       $timeout(function() {

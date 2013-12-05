@@ -21,15 +21,10 @@ angular.module('ionic.weather', ['ionic', 'ionic.weather.services', 'ionic.weath
       $scope.settingsModal = modal;
       $scope.settingsModal.show();
     }, {
-      scope: $scope,
       // The animation we want to use for the modal entrance
       animation: 'slide-in-up'
     });
   };
-  $scope.closeSettings = function() {
-    $scope.settingsModal && $scope.settingsModal.hide();
-  };
-
 
   $scope.getActiveBackgroundImage = function() {
     if($scope.activeBgImage) {
@@ -83,7 +78,6 @@ angular.module('ionic.weather', ['ionic', 'ionic.weather.services', 'ionic.weath
   };
 
   Geo.getLocation().then(function(position) {
-    console.log('GOT LAT', position);
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
 
@@ -92,5 +86,20 @@ angular.module('ionic.weather', ['ionic', 'ionic.weather.services', 'ionic.weath
   }, function(error) {
     alert('Unable to get current location: ' + error);
   });
+
+})
+
+.controller('SettingsCtrl', function($scope, Settings) {
+  $scope.settings = Settings.getSettings();
+
+  // Watch deeply for settings changes, and save them
+  // if necessary
+  $scope.$watch('settings', function(v) {
+    Settings.save();
+  }, true);
+
+  $scope.closeSettings = function() {
+    $scope.modal.hide();
+  };
 
 });
