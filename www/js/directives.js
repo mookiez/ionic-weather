@@ -23,7 +23,7 @@ angular.module('ionic.weather.directives', [])
       $scope.$watch('icon', function(v) {
         if(!v) { return; }
 
-        var icon = v.icon;
+        var icon = v;
 
         if(icon in WEATHER_ICONS) {
           $scope.weatherIcon = WEATHER_ICONS[icon];
