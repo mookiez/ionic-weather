@@ -148,3 +148,14 @@ angular.module('ionic.weather.directives', [])
     }
   }
 })
+
+.directive('scrollEffects', function() {
+  return {
+    restrict: 'A',
+    link: function($scope, $element, $attr) {
+      $element.bind('scroll', function(e) {
+        console.log('SCROLLING', e);
+      });
+    }
+  }
+})

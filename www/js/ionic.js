@@ -2602,6 +2602,7 @@ ionic.views.Scroll = ionic.views.View.inherit({
         }
         
         self.doTouchStart(e.touches, e.timeStamp);
+        e.preventDefault();
       }, false);
 
       document.addEventListener("touchmove", function(e) {
@@ -2609,7 +2610,6 @@ ionic.views.Scroll = ionic.views.View.inherit({
           return;
         }
         self.doTouchMove(e.touches, e.timeStamp);
-        e.preventDefault();
       }, false);
 
       document.addEventListener("touchend", function(e) {
