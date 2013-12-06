@@ -127,11 +127,12 @@ h1,h2,h3,h4,h5 {
   height: 60px;
 }
 #forecast-scroll .scroll {
-  width: 1150px;
+  width: 1480px;
 }
 .hourly-hour {
   display: inline-block;
   margin-right: 10px;
+  text-align: center;
 }
 
 /**
