@@ -16,14 +16,18 @@ angular.module('ionic.weather', ['ionic', 'ionic.weather.services', 'ionic.weath
   $scope.activeBgImageIndex = 0;
 
   $scope.showSettings = function() {
-   // Load the modal from the given template URL
-    Modal.fromTemplateUrl('settings.html', function(modal) {
-      $scope.settingsModal = modal;
+    if(!$scope.settingsModal) {
+     // Load the modal from the given template URL
+      Modal.fromTemplateUrl('settings.html', function(modal) {
+        $scope.settingsModal = modal;
+        $scope.settingsModal.show();
+      }, {
+        // The animation we want to use for the modal entrance
+        animation: 'slide-in-up'
+      });
+    } else {
       $scope.settingsModal.show();
-    }, {
-      // The animation we want to use for the modal entrance
-      animation: 'slide-in-up'
-    });
+    }
   };
 
   $scope.getActiveBackgroundImage = function() {
