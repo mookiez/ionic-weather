@@ -1587,8 +1587,6 @@ angular.module('ionic.ui.scroll', [])
       onScroll: '&',
       refreshComplete: '=',
       scroll: '@',
-      hasScrollX: '@',
-      hasScrollY: '@'
     },
 
     compile: function(element, attr, transclude) {

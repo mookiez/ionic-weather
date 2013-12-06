@@ -1,4 +1,5 @@
 body {
+  text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
 }
 #scroller {
 }
@@ -58,7 +59,9 @@ h1,h2,h3,h4,h5 {
 
 
 #current-icon {
-  font-size: 24px;
+  font-size: 42px;
+  vertical-align: middle;
+  margin-right: 5px;
 }
 
 #temp-hi, #temp-lo { display: inline-block; }
@@ -124,10 +127,11 @@ h1,h2,h3,h4,h5 {
 
 
 #forecast-scroll {
-  height: 60px;
+  height: 70px;
+  margin: 10px 0px;
 }
 #forecast-scroll .scroll {
-  width: 1480px;
+  width: 1500px;
 }
 .hourly-hour {
   display: inline-block;
