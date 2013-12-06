@@ -3,7 +3,7 @@ angular.module('ionic.weather.filters', ['ionic.weather.services'])
 .filter('temp', function(Settings) {
   return function(input) {
     if(Settings.getTempUnits() == 'f') {
-      return input.fahrenheit + '&deg;';
+      return input.fahrenheit;
     }
     return input.celsius;
   };
@@ -13,7 +13,7 @@ angular.module('ionic.weather.filters', ['ionic.weather.services'])
 .filter('tempEnglish', function(Settings) {
   return function(input) {
     if(Settings.getTempUnits() == 'f') {
-      return input.english + '&deg;';
+      return input.english;
     }
     return input.metric;
   };

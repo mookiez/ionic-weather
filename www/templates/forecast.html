@@ -4,15 +4,15 @@
     <div class="hourly-hour" ng-repeat="hour in hourly">
       <div class="time" ng-bind="hour.FCTTIME.hour | hourFormat"></div>
       <weather-icon icon="hour.icon"></weather-icon>
-      <div class="temp" ng-bind-html="hour.temp | tempEnglish"></div>
+      <div class="temp">{{hour.temp | tempEnglish}}&deg;</div>
     </div>
   </scroll>
   <div class="row" ng-repeat="day in forecast.forecastday">
     <div class="col"><span ng-bind="day.date.weekday"></span></div>
     <div class="col"><weather-icon icon="day.icon"></weather-icon></div>
     <div class="col">
-      <span class="temp-high" ng-bind-html="day.high | temp"></span>
-      <span class="temp-low" ng-bind-html="day.low | temp"></span>
+      <span class="temp-high">{{day.high | temp}}&deg;</span>
+      <span class="temp-low">{{day.low | temp}}&deg;</span>
     </div>
   </tr>
   </table>
