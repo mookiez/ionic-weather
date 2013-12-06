@@ -25,7 +25,7 @@
   </head>
 
   <body ng-controller="WeatherCtrl">
-    <pane>
+    <pane id="wrapper">
       <div id="bg-image" ng-style="getActiveBackgroundImage()"></div>
 
       <header id="header" class="bar bar-header bar-clear">
@@ -36,8 +36,10 @@
         <button ng-click="showSettings()" class="button button-icon"><i class="icon ion-gear-a"></i></button>
       </header>
       <content padding="true" scroll-event-interval="20" scroll-effects>
-        <current-weather></current-weather>
-        <forecast></forecast>
+        <div id="main-content">
+          <current-weather></current-weather>
+          <forecast></forecast>
+        </div>
       </content>
     </pane>
 

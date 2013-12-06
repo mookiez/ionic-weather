@@ -1,5 +1,9 @@
 body {
   text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+  background-color: black;
+}
+#wrapper {
+  background-color: black;
 }
 #scroller {
 }
@@ -17,6 +21,7 @@ h1,h2,h3,h4,h5 {
 
 #main-content {
   color: #fff;
+  height: 850px;
 }
 
 .ion-ios7-sunny-outline {

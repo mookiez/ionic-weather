@@ -114,7 +114,7 @@ angular.module('ionic.weather.directives', [])
         var windowHeight = window.innerHeight;
         var thisHeight = $element[0].offsetHeight;
         var headerHeight = document.querySelector('#header').offsetHeight;
-        //$element[0].style.paddingTop = (windowHeight - thisHeight) + 'px';
+        $element[0].style.paddingTop = (windowHeight - thisHeight) + 'px';
         angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'auto');
         $timeout(function() {
           angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'touch');
@@ -153,8 +153,11 @@ angular.module('ionic.weather.directives', [])
   return {
     restrict: 'A',
     link: function($scope, $element, $attr) {
+      var amt;
+      var bg = document.getElementById('bg-image');
       $element.bind('scroll', function(e) {
-        console.log('SCROLLING', e);
+        amt = Math.min(0.5, e.detail.scrollTop / 1200);
+        bg.style.opacity = 1 - amt;
       });
     }
   }
