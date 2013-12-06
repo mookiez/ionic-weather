@@ -117,11 +117,33 @@ angular.module('ionic.weather.services', ['ngResource'])
     }
   });
 
+  var hourlyResource = $resource(baseUrl + '/hourly/q/:coords.json', {
+    callback: 'JSON_CALLBACK'
+  }, {
+    get: {
+      method: 'JSONP'
+    }
+  });
+
   return {
     getForecast: function(lat, lng) {
       var q = $q.defer();
 
       forecastResource.get({
+        coords: lat + ',' + lng
+      }, function(resp) {
+        q.resolve(resp);
+      }, function(httpResponse) {
+        q.reject(httpResponse);
+      });
+
+      return q.promise;
+    },
+
+    getHourly: function(lat, lng) {
+      var q = $q.defer();
+
+      hourlyResource.get({
         coords: lat + ',' + lng
       }, function(resp) {
         q.resolve(resp);

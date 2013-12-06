@@ -2209,7 +2209,6 @@ img {
 body, .ionic-body {
   -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
-  -webkit-perspective: 1000;
   -webkit-backface-visibility: hidden;
   @incude text-size-adjust(none);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -2253,7 +2252,12 @@ body, .ionic-body {
   left: 0;
   position: absolute;
   overflow: hidden;
-  -webkit-perspective: 1000;
+  -webkit-backface-visibility: hidden;
+  margin-top: -1px;
+  width: auto; }
+
+.scroll-view {
+  overflow: hidden;
   -webkit-backface-visibility: hidden;
   margin-top: -1px;
   width: auto; }
@@ -2277,7 +2281,7 @@ body, .ionic-body {
   -webkit-transform-origin: left top;
   -moz-transform-origin: left top;
   transform-origin: left top;
-  -webkit-perspective: 1000;
+  white-space: nowrap;
   -webkit-backface-visibility: hidden; }
 
 .scroll-refresher {
@@ -2827,7 +2831,6 @@ a.subdued {
     padding: 0 8px;
     min-width: initial;
     min-height: 31px;
-    height: 32px;
     font-size: 12px;
     line-height: 30px; }
     .bar .button .icon, .bar .button.icon:before, .bar .button.icon-left:before, .bar .button.icon-right:before {
@@ -2843,7 +2846,6 @@ a.subdued {
       padding-left: 2px; }
   .bar .button-bar > .button, .bar .buttons > .button {
     min-height: 31px;
-    height: 32px;
     line-height: 30px; }
   .bar .button-bar + .button, .bar .button + .button-bar {
     margin-left: 5px; }
@@ -4181,6 +4183,19 @@ textarea {
   .item-input.item.active, .ionic-pseudo .item-input.item:active {
     border-color: #dddddd;
     background-color: transparent; }
+  .item-input .button-bar {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0 220px;
+    -moz-box-flex: 1;
+    -moz-flex: 1 0 220px;
+    -ms-flex: 1 0 220px;
+    flex: 1 0 220px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; }
 
 .item-input-inset {
   display: -webkit-box;
@@ -4577,12 +4592,11 @@ input[type="range"] {
   padding-right: 2px;
   padding-left: 1px;
   width: auto;
-  height: 4px;
   height: 35px;
   outline: none;
   background: linear-gradient(to right, #cccccc 0%, #cccccc 100%);
   background-position: center;
-  background-size: 96% 4px;
+  background-size: 99% 4px;
   background-repeat: no-repeat;
   -webkit-appearance: none; }
   input[type="range"]::-webkit-slider-thumb {
@@ -4598,17 +4612,17 @@ input[type="range"] {
     /* what creates the colorful line on the left side of the slider */
     position: absolute;
     top: 8px;
-    left: -320px;
-    width: 320px;
+    left: -2001px;
+    width: 2000px;
     height: 4px;
     background: #444444;
     content: ' '; }
   input[type="range"]::-webkit-slider-thumb:after {
     /* create a larger (but hidden) hit area */
     position: absolute;
-    top: -15px;
-    left: -15px;
-    padding: 25px;
+    top: -20px;
+    left: -20px;
+    padding: 30px;
     content: ' '; }
 
 .range {
@@ -4645,28 +4659,44 @@ input[type="range"] {
 
 .range .icon {
   -webkit-box-flex: 0;
-  -webkit-flex: 0 1 24px;
+  -webkit-flex: 0;
   -moz-box-flex: 0;
-  -moz-flex: 0 1 24px;
-  -ms-flex: 0 1 24px;
-  flex: 0 1 24px;
+  -moz-flex: 0;
+  -ms-flex: 0;
+  flex: 0;
   display: block;
   min-width: 24px;
   text-align: center;
   font-size: 24px; }
 
 .range input {
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 1 272px;
-  -moz-box-flex: 0;
-  -moz-flex: 0 1 272px;
-  -ms-flex: 0 1 272px;
-  flex: 0 1 272px;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
   display: block;
   margin-right: 10px;
   margin-left: 10px;
-  max-width: 320px;
   width: 100%; }
+
+.range-label {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  display: block;
+  white-space: nowrap; }
+
+.range-label:first-child {
+  padding-left: 5px; }
+
+.range input + .range-label {
+  padding-right: 5px;
+  padding-left: 0; }
 
 /**
  * Buttons
@@ -6109,3 +6139,14 @@ a.button {
   top: 64px; }
 .platform-ios7 .has-subheader {
   top: 108px; }
+
+.platform-android .bar-header {
+  height: 48px; }
+.platform-android .has-header {
+  top: 56px; }
+.platform-android .bar-subheader {
+  top: 48px; }
+.platform-android .has-subheader {
+  top: 96px; }
+.platform-android .title {
+  line-height: 48px; }

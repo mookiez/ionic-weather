@@ -1,24 +1,26 @@
 angular.module('ionic.weather.directives', [])
 
 .constant('WEATHER_ICONS', {
-  'partlycloudy': 'ion-ios7-partlysunny',
-  'mostlycloudy': 'ion-ios7-partlysunny',
-  'cloudy': 'ion-ios7-cloudy',
-  'rain': 'ion-ios7-rainy',
-  'tstorms': 'ion-ios7-thunderstorm',
-  'sunny': 'ion-ios7-sunny',
-  'nt_clear': 'ion-ios7-moon'
+  'partlycloudy': 'ion-ios7-partlysunny-outline',
+  'mostlycloudy': 'ion-ios7-partlysunny-outline',
+  'cloudy': 'ion-ios7-cloudy-outline',
+  'rain': 'ion-ios7-rainy-outline',
+  'tstorms': 'ion-ios7-thunderstorm-outline',
+  'sunny': 'ion-ios7-sunny-outline',
+  'nt_clear': 'ion-ios7-moon-outline'
 })
 
-.directive('currentWeatherIcon', function(WEATHER_ICONS) {
+.directive('weatherIcon', function(WEATHER_ICONS) {
   return {
     restrict: 'E',
     replace: true,
-    scope: {},
+    scope: {
+      icon: '='
+    },
     template: '<i class="icon" ng-class="weatherIcon"></i>',
     link: function($scope) {
 
-      $scope.$parent.$watch('current', function(v) {
+      $scope.$watch('icon', function(v) {
         if(!v) { return; }
 
         var icon = v.icon;
@@ -112,13 +114,23 @@ angular.module('ionic.weather.directives', [])
         var windowHeight = window.innerHeight;
         var thisHeight = $element[0].offsetHeight;
         var headerHeight = document.querySelector('#header').offsetHeight;
-        $element[0].style.paddingTop = (windowHeight - thisHeight) + 'px';
+        //$element[0].style.paddingTop = (windowHeight - thisHeight) + 'px';
         angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'auto');
         $timeout(function() {
           angular.element(document.querySelector('.content')).css('-webkit-overflow-scrolling', 'touch');
         }, 50);
       });
       }
+    }
+  }
+})
+
+.directive('forecast', function($timeout) {
+  return {
+    restrict: 'E',
+    replace: true,
+    templateUrl: 'templates/forecast.html',
+    link: function($scope, $element, $attr) {
     }
   }
 })

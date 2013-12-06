@@ -1,4 +1,4 @@
-angular.module('ionic.weather', ['ionic', 'ionic.weather.services', 'ionic.weather.directives'])
+angular.module('ionic.weather', ['ionic', 'ionic.weather.services', 'ionic.weather.filters', 'ionic.weather.directives'])
 
 .constant('WUNDERGROUND_API_KEY', '1cc2d3de40fa5af0')
 
@@ -57,7 +57,15 @@ angular.module('ionic.weather', ['ionic', 'ionic.weather.services', 'ionic.weath
       console.log('Forecast', resp);
       $scope.forecast = resp.forecast.simpleforecast;
     }, function(error) {
-      alert('Unable to get forecast');
+      alert('Unable to get forecast. Try again later');
+      console.error(error);
+    });
+
+    Weather.getHourly(lat, lng).then(function(resp) {
+      $scope.hourly = resp.hourly_forecast;
+      console.log($scope.hourly);
+    }, function(error) {
+      alert('Unable to get forecast. Try again later.');
       console.error(error);
     });
   };

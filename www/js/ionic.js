@@ -293,7 +293,7 @@ window.ionic = {
   // Map some convenient top-level functions for event handling
   ionic.on = function() { ionic.EventController.on.apply(ionic.EventController, arguments); };
   ionic.off = function() { ionic.EventController.off.apply(ionic.EventController, arguments); };
-  ionic.trigger = function() { ionic.EventController.trigger.apply(ionic.EventController.trigger, arguments); };
+  ionic.trigger = ionic.EventController.trigger;//function() { ionic.EventController.trigger.apply(ionic.EventController.trigger, arguments); };
   ionic.onGesture = function() { return ionic.EventController.onGesture.apply(ionic.EventController.onGesture, arguments); };
   ionic.offGesture = function() { return ionic.EventController.offGesture.apply(ionic.EventController.offGesture, arguments); };
 
@@ -1736,10 +1736,19 @@ window.ionic = {
 
       this._checkPlatforms(platforms);
 
-      for(var i = 0; i < platforms.length; i++) {
-        document.body.classList.add('platform-' + platforms[i]);
-      }
+      var classify = function() {
+        if(!document.body) { return; }
 
+        for(var i = 0; i < platforms.length; i++) {
+          document.body.classList.add('platform-' + platforms[i]);
+        }
+      };
+
+      document.addEventListener( "DOMContentLoaded", function(){
+        classify();
+      });
+
+      classify();
     },
     _checkPlatforms: function(platforms) {
       if(this.isCordova()) {
@@ -1747,6 +1756,12 @@ window.ionic = {
       }
       if(this.isIOS7()) {
         platforms.push('ios7');
+      }
+      if(this.isIPad()) {
+        platforms.push('ipad');
+      }
+      if(this.isAndroid()) {
+        platforms.push('android');
       }
     },
 
@@ -1757,11 +1772,20 @@ window.ionic = {
       //&& /^file:\/{3}[^\/]/i.test(window.location.href) 
       //&& /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
     },
+    isIPad: function() {
+      return navigator.userAgent.toLowerCase().indexOf('ipad') >= 0;
+    },
     isIOS7: function() {
       if(!window.device) {
         return false;
       }
       return parseFloat(window.device.version) >= 7.0;
+    },
+    isAndroid: function() {
+      if(!window.device) {
+        return navigator.userAgent.toLowerCase().indexOf('android') >= 0;
+      }
+      return device.platform === "Android";
     }
   };
 
@@ -2316,8 +2340,9 @@ var Scroller;
 	/**
 	 * A pure logic 'component' for 'virtual' scrolling/zooming.
 	 */
-	ionic.views.Scroll = ionic.views.View.inherit({
-    initialize: function(options) {
+ionic.views.Scroll = ionic.views.View.inherit({
+  initialize: function(options) {
+    var self = this;
 
     this.__container = options.el;
     this.__content = options.el.firstElementChild;
@@ -2367,16 +2392,34 @@ var Scroller;
 			scrollingComplete: NOOP,
 			
 			/** This configures the amount of change applied to deceleration when reaching boundaries  **/
-            penetrationDeceleration : 0.03,
+      penetrationDeceleration : 0.03,
 
-            /** This configures the amount of change applied to acceleration when reaching boundaries  **/
-            penetrationAcceleration : 0.08
+      /** This configures the amount of change applied to acceleration when reaching boundaries  **/
+      penetrationAcceleration : 0.08,
 
+      // The ms interval for triggering scroll events
+      scrollEventInterval: 50
 		};
 
 		for (var key in options) {
 			this.options[key] = options[key];
 		}
+
+    this.triggerScrollEvent = ionic.throttle(function() {
+      ionic.trigger('scroll', {
+        scrollTop: self.__scrollTop,
+        scrollLeft: self.__scrollLeft,
+        target: self.__container
+      });
+    }, this.options.scrollEventInterval);
+
+    this.triggerScrollEndEvent = function() {
+      ionic.trigger('scrollend', {
+        scrollTop: self.__scrollTop,
+        scrollLeft: self.__scrollLeft,
+        target: self.__container
+      });
+    };
 
     // Get the render update function, initialize event handlers,
     // and calculate the size of the scroll container
@@ -2634,6 +2677,8 @@ var Scroller;
   */
 
   getRenderFn: function() {
+    var self = this;
+
     var content = this.__content;
 
 	  var docStyle = document.documentElement.style;
@@ -2663,13 +2708,15 @@ var Scroller;
     if (helperElem.style[perspectiveProperty] !== undef) {
       
       return function(left, top, zoom) {
-        content.style[transformProperty] = 'translate3d(' + (-left) + 'px,' + (-top) + 'px,0) scale(' + zoom + ')';
+        content.style[transformProperty] = 'translate3d(' + (-left) + 'px,' + (-top) + 'px,0)';
+         self.triggerScrollEvent();
       };	
       
     } else if (helperElem.style[transformProperty] !== undef) {
       
       return function(left, top, zoom) {
-        content.style[transformProperty] = 'translate(' + (-left) + 'px,' + (-top) + 'px) scale(' + zoom + ')';
+        content.style[transformProperty] = 'translate(' + (-left) + 'px,' + (-top) + 'px)';
+         self.triggerScrollEvent();
       };
       
     } else {
@@ -2678,6 +2725,7 @@ var Scroller;
         content.style.marginLeft = left ? (-left/zoom) + 'px' : '';
         content.style.marginTop = top ? (-top/zoom) + 'px' : '';
         content.style.zoom = zoom || '';
+        self.triggerScrollEvent();
       };
       
     }

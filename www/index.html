@@ -19,6 +19,7 @@
     <script src="js/ionic-angular.js"></script>
 
     <script src="js/services.js"></script>
+    <script src="js/filters.js"></script>
     <script src="js/directives.js"></script>
     <script src="js/app.js"></script>
   </head>
@@ -36,9 +37,8 @@
       </header>
       <content padding="true">
         <current-weather></current-weather>
-        <weather-box title="Forecast" style="height: 400px">
-        </weather-box>
-        <weather-box title="Details" style="height: 400px">
+        <forecast></forecast>
+        <weather-box title="Details">
         </weather-box>
       </content>
     </pane>
@@ -48,7 +48,7 @@
       <div id="settings-modal" class="modal" ng-controller="SettingsCtrl">
         <header class="bar bar-header bar-dark">
           <h1 class="title">Settings</h1>
-          <button class="button button-clear button-positive" ng-click="closeSettings()">Close</button>
+          <button class="button button-clear" ng-click="closeSettings()">Close</button>
         </header>
         <content has-header="true">
           <div class="padding">
@@ -57,8 +57,8 @@
                 <span class="input-label">Units</span>
 
                 <radio-buttons ng-model="settings.tempUnits">
-                  <button class="button button-dark button-radio" ng-value="'f'">&deg;F</button>
-                  <button class="button button-dark button-radio" ng-value="'c'">&deg;C</button>
+                  <button class="button button-positive button-radio" ng-value="'f'">&deg;F</button>
+                  <button class="button button-positive button-radio" ng-value="'c'">&deg;C</button>
                 </radio-buttons>
               </label>
             </div>

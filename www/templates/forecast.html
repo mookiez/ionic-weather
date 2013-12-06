@@ -1,0 +1,19 @@
+<div id="forecast" class="weather-box">
+  <h4 class="title">Forecast</h4>
+  <scroll direction="x" id="forecast-scroll">
+    <div class="hourly-hour" ng-repeat="hour in hourly">
+      <div class="time" ng-bind="hour.FCTTIME.hour | hourFormat"></div>
+      <weather-icon icon="hour.icon"></weather-icon>
+      <div class="temp" ng-bind-html="hour.temp | tempEnglish"></div>
+    </div>
+  </scroll>
+  <div class="row" ng-repeat="day in forecast.forecastday">
+    <div class="col"><span ng-bind="day.date.weekday"></span></div>
+    <div class="col"><weather-icon icon="day.icon"></weather-icon></div>
+    <div class="col">
+      <span class="temp-high" ng-bind-html="day.high | temp"></span>
+      <span class="temp-low" ng-bind-html="day.low | temp"></span>
+    </div>
+  </tr>
+  </table>
+</div>
