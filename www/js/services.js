@@ -62,12 +62,18 @@ angular.module('ionic.weather.services', ['ngResource'])
             var r = results[0];
             var a, types;
             var parts = [];
+            var foundLocality = false;
+            var foundState = false;
             for(var i = 0; i < r.address_components.length; i++) {
               a = r.address_components[i];
               types = a.types;
               for(var j = 0; j < types.length; j++) {
-                if(types[j] == 'locality' || types[j] == 'administrative_area_level_1') {
+                if(!foundLocality && types[j] == 'locality') {
+                  foundLocality = true;
                   parts.push(a.long_name);
+                } else if(!foundState && types[j] == 'administrative_area_level_1') {
+                  foundState = true;
+                  //parts.push(a.long_name);
                 }
               }
             }
@@ -99,6 +105,7 @@ angular.module('ionic.weather.services', ['ngResource'])
 .factory('Flickr', function($q, $resource, FLICKR_API_KEY) {
   var baseUrl = 'http://api.flickr.com/services/rest/'
 
+
   var flickrSearch = $resource(baseUrl, {
     method: 'flickr.groups.pools.getPhotos',
     group_id: '1463451@N25',
@@ -115,6 +122,8 @@ angular.module('ionic.weather.services', ['ngResource'])
   return {
     search: function(tags, lat, lng) {
       var q = $q.defer();
+  
+      console.log('Searching flickr for tags', tags);
 
       flickrSearch.get({
         tags: tags,
