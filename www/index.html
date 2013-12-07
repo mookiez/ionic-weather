@@ -9,6 +9,8 @@
 
     <link rel="stylesheet" href="css/app.css">
 
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
     <script src="js/ionic.js"></script>
     <script src="js/angular/angular.js"></script>
     <script src="js/angular/angular-animate.js"></script>
@@ -28,7 +30,7 @@
 
   <body ng-controller="WeatherCtrl">
     <pane id="wrapper">
-      <div id="bg-image" ng-style="getActiveBackgroundImage()"></div>
+      <background-cycler class="bg-fade"></background-cycler>
 
       <header id="header" class="bar bar-header bar-clear">
         <h1 class="title">

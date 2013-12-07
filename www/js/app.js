@@ -30,18 +30,9 @@ angular.module('ionic.weather', ['ionic', 'ionic.weather.services', 'ionic.weath
     }
   };
 
-  $scope.getActiveBackgroundImage = function() {
-    if($scope.activeBgImage) {
-      var item = $scope.activeBgImage;
-      var url = "http://farm"+ item.farm +".static.flickr.com/"+ item.server +"/"+ item.id +"_"+ item.secret +"_z.jpg";
-      return {
-        'background-image': 'url(' + url + ')'
-      };
-    }
-  };
 
-  this.getBackgroundImage = function(lat, lng) {
-    Flickr.search('Madison, Wisconsin', lat, lng).then(function(resp) {
+  this.getBackgroundImage = function(lat, lng, locString) {
+    Flickr.search(locString, lat, lng).then(function(resp) {
       var photos = resp.photos;
       if(photos.photo.length) {
         $scope.bgImages = photos.photo;
@@ -95,7 +86,9 @@ angular.module('ionic.weather', ['ionic', 'ionic.weather.services', 'ionic.weath
       var lat = position.coords.latitude;
       var lng = position.coords.longitude;
 
-      //_this.getBackgroundImage(lat, lng);
+      Geo.reverseGeocode(lat, lng).then(function(locString) {
+        _this.getBackgroundImage(lat, lng, locString);
+      });
       _this.getCurrent(lat, lng);
     }, function(error) {
       alert('Unable to get current location: ' + error);

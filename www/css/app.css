@@ -7,12 +7,26 @@ body {
 }
 #scroller {
 }
-#bg-image {
+.bg-image {
   position: fixed;
   width: 120%;
   height: 120%;
-  background: url('../img/madison3.jpg') no-repeat transparent;
   background-size: cover;
+}
+
+.bg-fade > .ng-enter {
+  opacity: 0;
+  -webkit-transition: opacity 2s ease-in-out;
+}
+.bg-fade > .ng-enter-active {
+  opacity: 1;
+}
+.bg-fade > .ng-leave {
+  opacity: 1;
+  -webkit-transition: opacity 2s ease-in-out;
+}
+.bg-fade > .ng-leave-active {
+  opacity: 0;
 }
 h1,h2,h3,h4,h5 {
   color: #fff;
@@ -21,7 +35,7 @@ h1,h2,h3,h4,h5 {
 
 #main-content {
   color: #fff;
-  height: 850px;
+  height: 800px;
 }
 
 .ion-ios7-sunny-outline {
@@ -30,6 +44,7 @@ h1,h2,h3,h4,h5 {
 
 .ionic-refresher-content {
   color: rgb(255,255,255);
+  text-shadow: none;
 }
 
 /**
