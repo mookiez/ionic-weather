@@ -10,7 +10,7 @@ angular.module('ionic.weather', ['ionic', 'ionic.weather.services', 'ionic.weath
   };
 })
 
-.controller('WeatherCtrl', function($scope, $timeout, Weather, Geo, Flickr, Modal) {
+.controller('WeatherCtrl', function($scope, $timeout, $rootScope, Weather, Geo, Flickr, Modal) {
   var _this = this;
 
   $scope.activeBgImageIndex = 0;
@@ -64,6 +64,7 @@ angular.module('ionic.weather', ['ionic', 'ionic.weather.services', 'ionic.weath
     Weather.getHourly(lat, lng).then(function(resp) {
       $scope.hourly = resp.hourly_forecast;
       console.log($scope.hourly);
+      $rootScope.$broadcast('scroll.refreshComplete');
     }, function(error) {
       alert('Unable to get forecast. Try again later.');
       console.error(error);
@@ -89,16 +90,19 @@ angular.module('ionic.weather', ['ionic', 'ionic.weather.services', 'ionic.weath
     });
   };
 
-  Geo.getLocation().then(function(position) {
-    var lat = position.coords.latitude;
-    var lng = position.coords.longitude;
+  $scope.refreshData = function() {
+    Geo.getLocation().then(function(position) {
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
 
-    //_this.getBackgroundImage(lat, lng);
-    _this.getCurrent(lat, lng);
-  }, function(error) {
-    alert('Unable to get current location: ' + error);
-  });
+      //_this.getBackgroundImage(lat, lng);
+      _this.getCurrent(lat, lng);
+    }, function(error) {
+      alert('Unable to get current location: ' + error);
+    });
+  };
 
+  $scope.refreshData();
 })
 
 .controller('SettingsCtrl', function($scope, Settings) {

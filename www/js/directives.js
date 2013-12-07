@@ -153,10 +153,19 @@ angular.module('ionic.weather.directives', [])
   return {
     restrict: 'A',
     link: function($scope, $element, $attr) {
-      var amt;
+      var amt, st, header;
       var bg = document.getElementById('bg-image');
       $element.bind('scroll', function(e) {
-        amt = Math.min(0.5, e.detail.scrollTop / 1200);
+        if(!header) {
+          header = document.getElementById('header');
+        }
+        st = e.detail.scrollTop;
+        if(st >= 0) {
+          header.style.webkitTransform = 'translate3d(0, 0, 0)';
+        } else if(st < 0) {
+          header.style.webkitTransform = 'translate3d(0, ' + -st + 'px, 0)';
+        }
+        amt = Math.min(0.6, st / 1000);
         bg.style.opacity = 1 - amt;
       });
     }
