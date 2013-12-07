@@ -10,8 +10,13 @@ angular.module('ionic.weather', ['ionic', 'ionic.weather.services', 'ionic.weath
   };
 })
 
-.controller('WeatherCtrl', function($scope, $timeout, $rootScope, Weather, Geo, Flickr, Modal) {
+.controller('WeatherCtrl', function($scope, $timeout, $rootScope, Weather, Geo, Flickr, Modal, Platform) {
   var _this = this;
+
+  Platform.ready(function() {
+    // Hide the status bar
+    StatusBar.hide();
+  });
 
   $scope.activeBgImageIndex = 0;
 
@@ -45,7 +50,7 @@ angular.module('ionic.weather', ['ionic', 'ionic.weather.services', 'ionic.weath
 
   this.getForecast = function(lat, lng) {
     Weather.getForecast(lat, lng).then(function(resp) {
-      console.log('Forecast', resp);
+      //console.log('Forecast', resp);
       $scope.forecast = resp.forecast.simpleforecast;
     }, function(error) {
       alert('Unable to get forecast. Try again later');
@@ -54,7 +59,7 @@ angular.module('ionic.weather', ['ionic', 'ionic.weather.services', 'ionic.weath
 
     Weather.getHourly(lat, lng).then(function(resp) {
       $scope.hourly = resp.hourly_forecast;
-      console.log($scope.hourly);
+      //console.log($scope.hourly);
       $rootScope.$broadcast('scroll.refreshComplete');
     }, function(error) {
       alert('Unable to get forecast. Try again later.');
